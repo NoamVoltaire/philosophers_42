@@ -6,11 +6,11 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:06:53 by noam              #+#    #+#             */
-/*   Updated: 2024/08/09 19:06:57 by noam             ###   ########.fr       */
+/*   Updated: 2024/08/11 14:27:03 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "../../includes/philosophers.h"
 
 static inline bool	is_digit(char a)
 {
@@ -24,11 +24,12 @@ static bool	are_digits(char **av)
 {
 	short	i;
 	short	j;
+
 	i = 1;
 	while (av[i])
 	{
-	j = 0;
-		while(av[i][j])
+		j = 0;
+		while (av[i][j])
 		{
 			if (!is_digit(av[i][j]))
 				return (false);
@@ -36,11 +37,11 @@ static bool	are_digits(char **av)
 		}
 		i++;
 	}
-	return(true);
+	return (true);
 }
 
 
-bool args_valid(int ac, char **av)
+bool	args_valid(int ac, char **av)
 {
 	if ((ac != 5 && ac != 6) || !are_digits(av))
 	{

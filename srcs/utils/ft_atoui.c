@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:50:34 by noam              #+#    #+#             */
-/*   Updated: 2024/08/11 16:56:01 by noam             ###   ########.fr       */
+/*   Created: 2024/08/11 15:59:10 by noam              #+#    #+#             */
+/*   Updated: 2024/08/11 16:33:13 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/philosophers.h"
+#include "../../includes/philosophers.h"
 
-int	main(int argc, char **argv)
+
+
+unsigned int	ft_atoui(const char *str)
 {
-	t_table	table;
+	short			i;
+	unsigned int	nb;
 
-	if (!(args_valid(argc, argv)) || !(init_table(&table, argv)))
-		return (EXIT_FAILURE);
-	printf("nb_of_philo: %u\ntime_to_die: %u\ntime_to_eat: %u\ntime_to_sleep: %u\nto_satiety: %u\n",
-		table.nb_of_philo, table.time_to_die, table.time_to_eat, table.time_to_sleep, table.to_satiety);
-	return (EXIT_SUCCESS);
+	i = 0;
+	nb = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nb = nb * 10 + str[i] - '0';
+		i++;
+	}
+	return (nb);
 }
