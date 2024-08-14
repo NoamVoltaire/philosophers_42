@@ -6,20 +6,22 @@
 #    By: noam <noam@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/10 16:59:21 by noam              #+#    #+#              #
-#    Updated: 2024/08/11 16:56:58 by noam             ###   ########.fr        #
+#    Updated: 2024/08/12 13:46:31 by noam             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
 FLAGS = -Wall -Wextra -Werror
-VPATH = srcs/ srcs/args/ srcs/utils/ 
+VPATH = srcs/ srcs/args/ srcs/utils/ srcs/inits/ 
 
 ARGS = args init_table
 UTILS = ft_atoui
+INITS = init_philos init_sticks
 
 SRCS = $(addsuffix .c, $(ARGS))\
 		$(addsuffix .c, $(UTILS))\
+		$(addsuffix .c, $(INITS))\
 		main.c
 # echo :
 	# @echo $(SRCS)

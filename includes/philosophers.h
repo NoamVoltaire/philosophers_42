@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:52:43 by noam              #+#    #+#             */
-/*   Updated: 2024/08/11 16:56:45 by noam             ###   ########.fr       */
+/*   Updated: 2024/08/12 14:09:05 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,33 @@ typedef struct s_table
 	int							to_satiety;
 }	t_table;
 
+typedef struct s_philosopher
+{
+	int							name;
+	pthread_t					thread;
+	pthread_mutex_t				*left_chopstick;
+	pthread_mutex_t				*right_chopstick;
+	t_table						*table;
+}	t_philosopher;
+
+typedef enum e_state
+{
+	EAT,
+	SLEEP,
+	THINK,
+	DEAD,
+
+	TOOK,
+	DROPPED,
+}	t_state;
+
 bool		args_valid(int ac, char **av);
 bool		init_table(t_table *table, char **av);
+
+bool		init_sticks(pthread_mutex_t **chopsticks, t_table *table);
+bool		init_philos(t_philosopher **philo, t_table *table,
+				pthread_mutex_t **chopsticks);
+
 
 unsigned	int	ft_atoui(const char *str);
 
