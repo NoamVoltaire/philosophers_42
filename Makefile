@@ -6,7 +6,7 @@
 #    By: noam <noam@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/10 16:59:21 by noam              #+#    #+#              #
-#    Updated: 2024/08/12 13:46:31 by noam             ###   ########.fr        #
+#    Updated: 2024/08/23 15:33:08 by noam             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,14 @@ FLAGS = -Wall -Wextra -Werror
 VPATH = srcs/ srcs/args/ srcs/utils/ srcs/inits/ 
 
 ARGS = args init_table
-UTILS = ft_atoui
+UTILS = ft_atoui get_time write_action
 INITS = init_philos init_sticks
 
 SRCS = $(addsuffix .c, $(ARGS))\
 		$(addsuffix .c, $(UTILS))\
 		$(addsuffix .c, $(INITS))\
+		a_table.c\
+		diner.c\
 		main.c
 # echo :
 	# @echo $(SRCS)
