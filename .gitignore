@@ -53,3 +53,5 @@ dkms.conf
 
 # Local files
 philo
+tests/
+obj/

@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 19:33:42 by noam              #+#    #+#             */
-/*   Updated: 2024/08/23 17:12:57 by noam             ###   ########.fr       */
+/*   Updated: 2024/09/05 16:31:12 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	overseeing_diner(t_philosopher *philos, t_table *args)
 		}
 		if (satisfied_philos == args->nb_of_philo)
 			return (all_have_eaten(args));
+		usleep(1000);
 		// pthread_mutex_unlock(&args->monitor);
 	}
 }
@@ -66,7 +67,7 @@ static void	overseeing_diner(t_philosopher *philos, t_table *args)
 
 
 
-bool	a_table(t_philosopher *philos, pthread_mutex_t *chopsticks,
+bool	a_table(t_philosopher *philos,/* t_cutlery *chopsticks,*/
 														t_table *table)
 {
 	/* make thread until all philos are in threads
@@ -80,8 +81,15 @@ bool	a_table(t_philosopher *philos, pthread_mutex_t *chopsticks,
 	then join the threads (end of the simulation)
 	
 	 */
+	// void *((*diner)(void*));
 	int	i;
 
+	// void *(*_diner)(void *);
+	// if (table->nb_of_philo % 2)
+	// 	_diner = diner_even;
+	// else
+	// 	_diner = diner_even;
+			
 	i = -1;
 	while (++i < table->nb_of_philo)
 	{
@@ -96,6 +104,6 @@ bool	a_table(t_philosopher *philos, pthread_mutex_t *chopsticks,
 		if (pthread_join(philos[i].thread, NULL) != 0)
 			return (false);
 	}
-	pthread_mutex_destroy(chopsticks);
+	// free_forks(&chopsticks, table->nb_of_philo);
 	return (true); 
 }
