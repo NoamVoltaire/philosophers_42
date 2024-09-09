@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 14:27:22 by noam              #+#    #+#             */
-/*   Updated: 2024/08/23 15:25:34 by noam             ###   ########.fr       */
+/*   Updated: 2024/09/07 18:33:47 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,5 @@ bool	init_table(t_table *table, char **av)
 		return (false);
 	}
 	table->should_stop = false;
-	// table->start_time = get_time();
 	return (true);
-
 }

@@ -6,13 +6,13 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 02:15:34 by noam              #+#    #+#             */
-/*   Updated: 2024/08/23 16:42:57 by noam             ###   ########.fr       */
+/*   Updated: 2024/09/07 18:27:15 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philosophers.h"
 
-#define EAT "is eating 😋\n"
+#define EAT "is eating 🍥\n"
 #define SLEEP "is sleeping 😴\n"
 #define THINK "is thinking 🤔\n"
 #define DEAD "is dead 😵\n"

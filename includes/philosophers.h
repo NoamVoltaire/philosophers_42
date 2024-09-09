@@ -6,7 +6,7 @@
 /*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:52:43 by noam              #+#    #+#             */
-/*   Updated: 2024/09/05 16:31:57 by noam             ###   ########.fr       */
+/*   Updated: 2024/09/07 18:15:30 by noam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ typedef struct s_table
 
 }	t_table;
 
-typedef struct s_cutlery
-{
-	pthread_mutex_t				mutex;
-	bool						is_locked;
-}	t_cutlery;
+// typedef struct s_cutlery
+// {
+// 	pthread_mutex_t				mutex;
+// 	bool						is_locked;
+// }	pthread_mutex_t;
 
 typedef struct s_philosopher
 {
 	int							name;
 	pthread_t					thread;
-	t_cutlery				*first_chopstick;
-	t_cutlery				*second_chopstick;
+	pthread_mutex_t				*first_chopstick;
+	pthread_mutex_t				*second_chopstick;
 	t_table						*table;
 	suseconds_t					last_meal;
 	suseconds_t					start_time;
@@ -69,20 +69,19 @@ typedef enum e_state
 bool		args_valid(int ac, char **av);
 bool		init_table(t_table *table, char **av);
 
-bool		init_sticks(t_cutlery **chopsticks, t_table *table);
+bool		init_sticks(pthread_mutex_t **chopsticks, t_table *table);
 bool		init_philos(t_philosopher **philo, t_table *table,
-				t_cutlery **chopsticks);
+				pthread_mutex_t **chopsticks);
 
-bool		a_table(t_philosopher *philos,/* t_cutlery *chopsticks,*/
-				t_table *table);
-				
+bool		a_table(t_philosopher *philos, t_table *table);
+
 suseconds_t	get_time(void);
 void		*diner(void *void_philo);
 // void		*diner_even(void *void_philo);
 // void		*diner_odd(void *void_philo);
 void	write_action(t_philosopher *philo, t_state state);
 
-void	free_forks(t_cutlery **chopsticks, unsigned int nb_of_chopsticks);
+void	free_forks(pthread_mutex_t **chopsticks, unsigned int nb_of_chopsticks);
 
 
 
