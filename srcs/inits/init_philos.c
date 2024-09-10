@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 00:51:49 by noam              #+#    #+#             */
-/*   Updated: 2024/09/07 18:32:29 by noam             ###   ########.fr       */
+/*   Updated: 2024/09/10 13:42:05 by nvoltair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	init_philos(t_philosopher **philo, t_table *table,
 	i = -1;
 	*philo = malloc(table->nb_of_philo * sizeof(t_philosopher));
 	if (!(*philo))
-		return (false);
+		return (free_n_exit(NULL, *chopsticks, table, MALLOC_ERROR));
 	while (++i < table->nb_of_philo)
 	{
 		(*philo)[i].name = i + 1;

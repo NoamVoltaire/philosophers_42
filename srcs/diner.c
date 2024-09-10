@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   diner.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 01:31:40 by noam              #+#    #+#             */
-/*   Updated: 2024/09/07 18:35:46 by noam             ###   ########.fr       */
+/*   Updated: 2024/09/10 17:25:37 by nvoltair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ void	eat(t_philosopher *philo)
 	u_sleep(philo->table->time_to_eat);
 	pthread_mutex_unlock(philo->second_chopstick);
 	pthread_mutex_unlock(philo->first_chopstick);
+	pthread_mutex_lock(&philo->table->monitor);
 	philo->meal_count++;
 	philo->last_meal = get_time();
+	pthread_mutex_unlock(&philo->table->monitor);
 }
 
 /* ************************************************************************** */

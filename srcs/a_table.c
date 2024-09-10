@@ -3,21 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   a_table.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 19:33:42 by noam              #+#    #+#             */
-/*   Updated: 2024/09/07 18:35:01 by noam             ###   ########.fr       */
+/*   Updated: 2024/09/10 17:38:34 by nvoltair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
+static inline bool	starved(t_philosopher *philo)
+{
+	return (((get_time() - philo->last_meal)
+			>= philo->table->time_to_die));
+}
+
+/* ************************************************************************** */
+
 static inline void	all_have_eaten(t_table *args)
 {
 	pthread_mutex_lock(&args->monitor);
 	args->should_stop = true;
-	pthread_mutex_unlock(&args->monitor);
 	printf("Every Philosopher had %d meals!\n", args->to_satiety);
+	pthread_mutex_unlock(&args->monitor);
 }
 
 /* ************************************************************************** */
@@ -28,8 +36,10 @@ and if so increments args.satisfied_philos and also checks */
 static bool	is_philo_dead(t_table *args, t_philosopher *philo,
 							int *satisfied_philos)
 {
+	pthread_mutex_lock(&args->monitor);
 	if (args->to_satiety > 0 && philo->meal_count >= args->to_satiety)
 		*satisfied_philos += 1;
+	pthread_mutex_unlock(&args->monitor);
 	if (starved(philo))
 	{
 		write_action(philo, DEAD);
@@ -66,7 +76,7 @@ static void	overseeing_diner(t_philosopher *philos, t_table *args)
 
 /* ************************************************************************** */
 
-bool	a_table(t_philosopher *philos, t_table *table)
+bool	a_table(t_philosopher *philos, t_table *table, pthread_mutex_t *stick)
 {
 	int	i;
 
@@ -76,14 +86,14 @@ bool	a_table(t_philosopher *philos, t_table *table)
 		philos[i].start_time = get_time();
 		if (pthread_create(&philos[i].thread,
 				NULL, diner, (void *)&philos[i]) != 0)
-			return (false);
+			return (free_n_exit(philos, stick, table, THREAD_ERROR));
 	}
 	overseeing_diner(philos, table);
 	i = -1;
 	while (++i < table->nb_of_philo)
 	{
 		if (pthread_join(philos[i].thread, NULL) != 0)
-			return (false);
+			return (free_n_exit(philos, stick, table, THREAD_ERROR));
 	}
-	return (true); 
+	return (true);
 }

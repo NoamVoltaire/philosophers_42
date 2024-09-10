@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_table.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 14:27:22 by noam              #+#    #+#             */
-/*   Updated: 2024/09/07 18:33:47 by noam             ###   ########.fr       */
+/*   Updated: 2024/09/10 13:33:12 by nvoltair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	init_table(t_table *table, char **av)
 	table->time_to_eat = ft_atoui(av[3]);
 	table->time_to_sleep = ft_atoui(av[4]);
 	if (pthread_mutex_init(&table->monitor, NULL) != 0)
-		return (false);
+		return (free_n_exit(NULL, NULL, NULL, MUTEX_ERROR));
 	table->to_satiety = -1;
 	if (av[5])
 		table->to_satiety = ft_atoui(av[5]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sticks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noam <noam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 00:21:59 by noam              #+#    #+#             */
-/*   Updated: 2024/09/07 18:36:58 by noam             ###   ########.fr       */
+/*   Updated: 2024/09/10 13:41:16 by nvoltair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,11 @@ bool	init_sticks(pthread_mutex_t **chopsticks, t_table *table)
 	i = 0;
 	*chopsticks = malloc(table->nb_of_philo * sizeof(pthread_mutex_t));
 	if (!(*chopsticks))
-		return (false);
+		return (free_n_exit(NULL, NULL, table, MALLOC_ERROR));
 	while (i < table->nb_of_philo)
 	{
 		if (pthread_mutex_init(&(*chopsticks)[i], NULL) != 0)
-		{
-			free_forks(&(*chopsticks), i);
-			return (false);
-		}
+			free_n_exit(NULL, *chopsticks, table, MUTEX_ERROR);
 		i++;
 	}
 	return (true);
