@@ -6,7 +6,7 @@
 /*   By: nvoltair <nvoltair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 19:33:42 by noam              #+#    #+#             */
-/*   Updated: 2024/09/10 17:38:34 by nvoltair         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:14:50 by nvoltair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 static inline bool	starved(t_philosopher *philo)
 {
-	return (((get_time() - philo->last_meal)
-			>= philo->table->time_to_die));
+	bool	starved;
+
+	pthread_mutex_lock(&philo->table->monitor);
+	starved = (((get_time() - philo->last_meal)
+				>= philo->table->time_to_die));
+	pthread_mutex_unlock(&philo->table->monitor);
+	return (starved);
 }
 
 /* ************************************************************************** */
